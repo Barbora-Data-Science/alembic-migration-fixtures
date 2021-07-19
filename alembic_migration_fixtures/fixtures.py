@@ -26,7 +26,9 @@ def pytest_addoption(parser: Parser) -> None:
 
 
 @fixture(scope="session")
-def _with_test_db(database_engine: sqlalchemy.engine.Engine, request: FixtureRequest) -> None:
+def _with_test_db(
+    database_engine: sqlalchemy.engine.Engine, request: FixtureRequest
+) -> None:
     """Fixture for database setup before running tests.
 
     Args:
@@ -35,12 +37,16 @@ def _with_test_db(database_engine: sqlalchemy.engine.Engine, request: FixtureReq
     """
     with _real_db_session(database_engine) as session:
         _wipe_db_schema(session)
-    alembic_folder = Path(request.config.rootdir) / request.config.getoption("--alembic-folder")
+    alembic_folder = Path(request.config.rootdir) / request.config.getoption(
+        "--alembic-folder"
+    )
     _run_db_schema_migrations(str(database_engine.url), str(alembic_folder))
 
 
 @fixture(scope="function")
-def test_db_session(database_engine: sqlalchemy.engine.Engine, _with_test_db) -> Iterator[Session]:
+def test_db_session(
+    database_engine: sqlalchemy.engine.Engine, _with_test_db
+) -> Iterator[Session]:
     """Create a database session that will rollback even if commits are issued during the test.
 
     Args:
