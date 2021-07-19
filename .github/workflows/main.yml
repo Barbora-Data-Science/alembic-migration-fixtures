@@ -1,0 +1,39 @@
+name: Checks
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ci:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [ 3.7, 3.8, 3.9 ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Setup poetry
+        uses: abatilo/actions-poetry@v2.0.0
+        with:
+          poetry-version: 1.1.7
+      - name: Check pyproject.toml
+        run: poetry check --no-interaction
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pypoetry
+          # We only want to clear the cache if the dependency specification has changed
+          key: ${{ matrix.python-version }}-poetry-${{ hashFiles('poetry.lock') }}
+          restore-keys: |
+            ${{ matrix.python-version }}-poetry-
+      - name: Install dependencies
+        run: poetry install
+      - name: Verify formatting with Black
+        run: poetry run black --check .

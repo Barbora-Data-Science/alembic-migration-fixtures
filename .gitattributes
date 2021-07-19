@@ -1,0 +1,2 @@
+# convert to linux-style on commit, convert to windows-style line endings on checkout
+* text=auto

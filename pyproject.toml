@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "alembic_migration_fixtures"
+version = "0.1.0"
+description = "Pytest fixtures for tests involving databases managed by alembic migrations"
+
+authors = ["Saulius Beinorius <saulius.beinorius@gmail.com>"]
+maintainers = ["Saulius Beinorius <saulius.beinorius@gmail.com>"]
+
+license = "Apache-2.0"
+readme = "README.md"
+
+homepage = "https://github.com/Barbora-Data-Science/alembic-migration-fixtures"
+repository = "https://github.com/Barbora-Data-Science/alembic-migration-fixtures"
+classifiers = [
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+alembic = ">=1.4.2,<1.7"
+pytest = ">=5.2,<7.0"
+SQLAlchemy = ">=1.3.19,<1.5"
+
+[tool.poetry.dev-dependencies]
+black = "^21.7b0"
+
+[tool.poetry.plugins.pytest11]
+alembic_migration_fixtures = "alembic_migration_fixtures.fixtures"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
