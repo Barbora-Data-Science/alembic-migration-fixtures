@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "alembic_migration_fixtures"
-version = "0.1.0"
+version = "0.2.0"
 description = "Pytest fixtures for tests involving databases managed by alembic migrations"
 
 authors = ["Saulius Beinorius <saulius.beinorius@gmail.com>"]
@@ -18,7 +18,7 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.7"
 
-alembic = ">=1.4.2,<1.7"
+alembic = ">=1.4.2,<2"
 pytest = ">=5.2,<7.0"
 SQLAlchemy = ">=1.3.19,<1.5"
 
