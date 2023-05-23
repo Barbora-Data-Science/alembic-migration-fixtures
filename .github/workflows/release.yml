@@ -16,7 +16,7 @@ jobs:
       - name: Setup poetry
         uses: abatilo/actions-poetry@v2.0.0
         with:
-          poetry-version: 1.1.7
+          poetry-version: 1.4.2
       - name: Verify versions match
         run: |
           POETRY_VERSION=$(poetry version --short)
